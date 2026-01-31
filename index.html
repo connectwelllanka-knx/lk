@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNX Pro Academy | Smart Home Automation Training</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1a365d;
+            --secondary: #2d6bc9;
+            --accent: #00b4d8;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #28a745;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+        }
+
+        /* Header & Navigation */
+        header {
+            background: var(--primary);
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            color: var(--accent);
+            margin-right: 10px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .cta-button {
+            background: var(--accent);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #0093b8;
+        }
+
+        .menu-toggle {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(26, 54, 93, 0.9), rgba(26, 54, 93, 0.8)), url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 6rem 5%;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Courses Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .courses {
+            padding: 5rem 5%;
+            background: var(--light);
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .course-header {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .course-header h3 {
+            font-size: 1.5rem;
+        }
+
+        .course-body {
+            padding: 1.5rem;
+        }
+
+        .course-body ul {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .course-body li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .course-body li:before {
+            content: "✓";
+            color: var(--success);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .knx-badge {
+            display: inline-block;
+            background: #e30613;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Certification Section */
+        .certification {
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .cert-logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .cert-logo {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 180px;
+        }
+
+        .cert-logo i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 5%;
+            background: var(--primary);
+            color: white;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: #0d1b36;
+            color: white;
+            padding: 3rem 5% 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--primary);
+                padding: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-home-automation"></i>
+                KNX<span>Pro</span> Academy
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#certification">Certification</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#contact" class="cta-button">Enroll Now</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Become a Certified Smart Home & KNX Professional</h1>
+        <p>Hands-on training in KNX systems, home automation, and IoT integration. Industry-recognized certification with 100% placement assistance.</p>
+        <a href="#courses" class="cta-button">View Our Courses <i class="fas fa-arrow-right"></i></a>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses" id="courses">
+        <div class="section-title">
+            <h2>Our Training Programs</h2>
+            <p>Comprehensive courses designed for engineers, electricians, and automation professionals</p>
+        </div>
+        <div class="course-grid">
+            <div class="course-card">
+                <div class="course-header">
+                    <h3>KNX Basic Course</h3>
+                    <div class="knx-badge">KNX Certified</div>
+                </div>
+                <div class="course-body">
+                    <p><strong>Duration:</strong> 5 Days</p>
+                    <p><strong>Level:</strong> Beginner</p>
+                    <h4>You'll Learn:</h4>
+                    <ul>
+                        <li>KNX Standard Fundamentals</li>
+                        <li>ETS Software Training</li>
+                        <li>System Design & Planning</li>
+                        <li>Practical Installation</li>
+                        <li>Troubleshooting Techniques</li>
+                    </ul>
+                    <a href="#contact" class="cta-button" style="display: block; text-align: center;">Enroll Now</a>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <h3>Advanced KNX Programming</h3>
+                    <div class="knx-badge">Advanced Level</div>
+                </div>
+                <div class="course-body">
+                    <p><strong>Duration:</strong> 7 Days</p>
+                    <p><strong>Prerequisite:</strong> KNX Basic</p>
+                    <h4>You'll Learn:</h4>
+                    <ul>
+                        <li>Advanced ETS Programming</li>
+                        <li>KNX IoT Integration</li>
+                        <li>Building Management Systems</li>
+                        <li>KNX Secure Programming</li>
+                        <li>Custom Visualization</li>
+                    </ul>
+                    <a href="#contact" class="cta-button" style="display: block; text-align: center;">Enroll Now</a>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <h3>Smart Home Integration</h3>
+                </div>
+                <div class="course-body">
+                    <p><strong>Duration:</strong> 6 Days</p>
+                    <p><strong>Level:</strong> Intermediate</p>
+                    <h4>You'll Learn:</h4>
+                    <ul>
+                        <li>Multi-Protocol Systems</li>
+                        <li>KNX + DALI + BACnet</li>
+                        <li>Voice Control Integration</li>
+                        <li>Mobile App Development</li>
+                        <li>Energy Management Systems</li>
+                    </ul>
+                    <a href="#contact" class="cta-button" style="display: block; text-align: center;">Enroll Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certification Section -->
+    <section class="certification" id="certification">
+        <div class="section-title">
+            <h2>Industry Recognized Certification</h2>
+            <p>Our courses lead to globally recognized certifications</p>
+        </div>
+        <div class="cert-logos">
+            <div class="cert-logo">
+                <i class="fas fa-certificate"></i>
+                <h4>KNX Partner Certificate</h4>
+            </div>
+            <div class="cert-logo">
+                <i class="fas fa-user-tie"></i>
+                <h4>Certified Installer</h4>
+            </div>
+            <div class="cert-logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h4>Diploma in Home Automation</h4>
+            </div>
+        </div>
+        <p style="max-width: 800px; margin: 0 auto;">Our training center is an authorized KNX training partner. Graduates receive international certification recognized by KNX Association.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="section-title">
+            <h2 style="color: white;">Contact Us</h2>
+            <p style="color: rgba(255,255,255,0.8);">Get started with your automation career today</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-form">
+                <h3>Enquiry Form</h3>
+                <form id="enquiryForm">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Email Address" required>
+                    <input type="tel" placeholder="Phone Number">
+                    <select style="width: 100%; padding: 1rem; margin-bottom: 1rem; border-radius: 5px; background: rgba(255,255,255,0.1); color: white; border: none;">
+                        <option value="" disabled selected>Select Course</option>
+                        <option value="knx-basic">KNX Basic Course</option>
+                        <option value="knx-advanced">Advanced KNX Programming</option>
+                        <option value="smart-home">Smart Home Integration</option>
+                        <option value="custom">Custom Corporate Training</option>
+                    </select>
+                    <textarea placeholder="Your Message" rows="4"></textarea>
+                    <button type="submit" class="cta-button" style="border: none; cursor: pointer; width: 100%;">Submit Enquiry</button>
+                </form>
+            </div>
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Automation Training Center, Tech Park, City</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@knxproacademy.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 9AM-6PM | Sat: 10AM-2PM</p>
+                <h3 style="margin-top: 2rem;">Upcoming Batch</h3>
+                <p><i class="fas fa-calendar-alt"></i> Next KNX Basic: March 15, 2024</p>
+                <p><i class="fas fa-users"></i> Limited to 12 students per batch</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>KNX Pro Academy</h3>
+                <p>Leading provider of KNX and smart home automation training since 2010. Over 2,500 certified professionals trained.</p>
+            </div>
+            <div>
+                <h3>Quick Links</h3>
+                <p><a href="#courses" style="color: white; text-decoration: none;">Courses</a></p>
+                <p><a href="#certification" style="color: white; text-decoration: none;">Certification</a></p>
+                <p><a href="#contact" style="color: white; text-decoration: none;">Contact</a></p>
+                <p><a href="#" style="color: white; text-decoration: none;">Career Opportunities</a></p>
+            </div>
+            <div>
+                <h3>Follow Us</h3>
+                <p>
+                    <a href="#" style="color: white; margin-right: 15px;"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" style="color: white; margin-right: 15px;"><i class="fab fa-youtube"></i></a>
+                    <a href="#" style="color: white; margin-right: 15px;"><i class="fab fa-facebook"></i></a>
+                    <a href="#" style="color: white;"><i class="fab fa-instagram"></i></a>
+                </p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 KNX Pro Academy. All rights reserved. | KNX® is a registered trademark of KNX Association.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Form Submission
+        document.getElementById('enquiryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your enquiry! We will contact you within 24 hours.');
+            this.reset();
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
